@@ -4,6 +4,7 @@ import axios from "axios";
 
 const initialState = {
     data: [],
+    wish: [],
     loading: false,
 };
 // const getParameters = {
@@ -24,6 +25,7 @@ const initialState = {
 //       return rejectWithValue(err.response.data)
 //     }
 //   });
+
 export const getParticles = createAsyncThunk("particles/getParticles", async (name, {rejectWithValue}) => {
   try {
     const response = await axios.get("/api/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty", {params: 
@@ -48,7 +50,11 @@ export const getParticles = createAsyncThunk("particles/getParticles", async (na
   export const particleSlice = createSlice({
     name: "particles",
     initialState,
-    reducers: {},
+    reducers: {
+      wish: (state, action) => {
+        state.wish = [...state.wish, action.payload]
+      },
+    },
     extraReducers: {
       [getParticles.pending]: (state) => {
         state.loading = true
@@ -63,5 +69,5 @@ export const getParticles = createAsyncThunk("particles/getParticles", async (na
       
     },
   });
-  
-  export default particleSlice.reducer
+  export const { wish } = particleSlice.actions;
+  export default particleSlice.reducer;

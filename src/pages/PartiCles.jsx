@@ -28,8 +28,12 @@ function PartiCles() {
         <option key="서울" value="서울">서울</option>
         <option key="인천" value="인천">인천</option>
         <option key="제주" value="제주">제주</option>
+        <option key="부산" value="부산">부산</option>
+        <option key="대전" value="대전">대전</option>
+        <option key="광주" value="광주">광주</option>
+        <option key="대구" value="대구">대구</option>
 		  </select>
-        <Particlelist data={data}/>
+      {data.items && <Particlelist data={data}/>}
     </div>
   )
 }
