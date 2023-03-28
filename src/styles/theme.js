@@ -10,8 +10,12 @@ const palette = {
 const common = {
     flexCenter: `
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      border-radius: 50px;
+      height: 200px;
+      margin-bottom: 30px;
     `,
     flexAround: `
       display: flex;
@@ -32,9 +36,10 @@ const common = {
 }
 
 const fontSizes = {
-    title: '2rem',
-    subtitle: '1.5rem',
+    title: '1rem',
+    subtitle: '1.3rem',
     paragraph: '1rem',
+    grade:'50px',
 }
 
 const theme = {

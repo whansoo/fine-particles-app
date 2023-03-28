@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Container, Title, SubTitle, Icon } from './StyleParticleList';
+import { Container, Title, SubTitle, Icon, Grade } from './StyleParticleList';
 import { wisha } from '../store/particleSlice'
 import { useDispatch } from 'react-redux';
 
 function ParticleAreaDetail({data}) {
     const [stationname, setStationame] = useState('계산')
+    const [items, setItems] = useState(data.items?.map((item, index) => ({...item, id: index, checked: false})))
     const dispatch = useDispatch()
     const handleChange = (e) => {
           setStationame(e.target.value)
@@ -15,10 +16,11 @@ function ParticleAreaDetail({data}) {
         return true;
       }
       
-      const newdata = data.items?.find(findstation)
+    //   const newdata = data.items?.find(findstation)
+      const newdata = items?.find(findstation)
       const CheckHandler = (id) => {
-       
-      const a = data.items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item).filter((item => item.id === id))
+        setItems(items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item))
+      const a = items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item).filter((item => item.id === id))
       dispatch(wisha(...a))
       }
       const onClick = (id) => {
@@ -51,12 +53,11 @@ function ParticleAreaDetail({data}) {
         </svg>
        }
        </Icon> 
-       <p>{newdata.pm10Grade}</p>
-       {newdata.pm10Grade === '1'?  <SubTitle>좋음</SubTitle> :  
-       (newdata.pm10Grade === '2'?  <SubTitle>보통</SubTitle> : 
-       (newdata.pm10Grade === '3'?  <SubTitle>한때나쁨</SubTitle> : 
-       (newdata.pm10Grade === '4'?  <SubTitle>나쁨</SubTitle> : 
-       (newdata.pm10Grade === '5'?  <SubTitle>매우나쁨</SubTitle> : <SubTitle>알수없음</SubTitle>)) )) }
+       {newdata.pm10Grade === '1'?  <Grade>좋음</Grade> :  
+       (newdata.pm10Grade === '2'?  <Grade>보통</Grade> : 
+       (newdata.pm10Grade === '3'?  <Grade>한때나쁨</Grade> : 
+       (newdata.pm10Grade === '4'?  <Grade>나쁨</Grade> : 
+       (newdata.pm10Grade === '5'?  <Grade>매우나쁨</Grade> : <Grade>알수없음</Grade>)) )) }
        <SubTitle>미세먼지 수치 : {newdata.pm10Value}</SubTitle>
        <SubTitle>{newdata.dataTime} 기준</SubTitle>
     </Container>

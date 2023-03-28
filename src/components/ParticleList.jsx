@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Container, Title, SubTitle, Icon } from './StyleParticleList';
+import { Container, Title, SubTitle,Grade, Icon } from './StyleParticleList';
 import { wisha } from '../store/particleSlice'
 
 
@@ -38,12 +38,12 @@ function Particlelist({ data }) {
             </svg>
            }
            </Icon> 
-           <p>{item.pm10Grade}</p>
-           {item.pm10Grade === '1'?  <SubTitle>좋음</SubTitle> :  
-           (item.pm10Grade === '2'?  <SubTitle>보통</SubTitle> : 
-           (item.pm10Grade === '3'?  <SubTitle>한때나쁨</SubTitle> : 
-           (item.pm10Grade === '4'?  <SubTitle>나쁨</SubTitle> : 
-           (item.pm10Grade === '5'?  <SubTitle>매우나쁨</SubTitle> : <SubTitle>알수없음</SubTitle>)) )) }
+           {item.pm10Grade === '1'?  <Grade>좋음</Grade> :  
+           (item.pm10Grade === '2'?  <Grade>보통</Grade> : 
+           (item.pm10Grade === '3'?  <Grade>한때나쁨</Grade> : 
+           (item.pm10Grade === '4'?  <Grade>나쁨</Grade> : 
+           (item.pm10Grade === '5'?  <Grade>매우나쁨</Grade> : <Grade>알수없음</Grade>)) )) }
+            
            <SubTitle>미세먼지 수치 : {item.pm10Value}</SubTitle>
            <SubTitle>{item.dataTime} 기준</SubTitle>
         </Container>

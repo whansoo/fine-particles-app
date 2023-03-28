@@ -1,21 +1,13 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-// import ParticleLikeDetail from './ParticleLikeDetail';
-import { wisha } from '../store/particleSlice';
-import { Container, Icon, SubTitle, Title } from './StyleParticleList';
+import { useSelector } from 'react-redux'
+import { Container, Grade, Icon, SubTitle, Title } from './StyleParticleList';
 function ParticleLike() {
-  const dispatch = useDispatch();
+ 
     const wish = useSelector((state) => state.particles.wish);
-   
     const [checkitems, setCheckitems] = useState(wish)
     
-    // const [checked, setChecked] = useState()
-    // const a = wish.map((item,index) => item[index][index])
-
     const CheckHandler = (id) => {
       setCheckitems(checkitems?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item).filter((item => item.id !== id)))
-      // const a = checkitems?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item).filter((item => item.id !== id))
-      // dispatch(wisha(...a))
     }
     console.log(checkitems)
    
@@ -24,9 +16,10 @@ function ParticleLike() {
     }
 
   return (
+  
+   
     <div> 
         {checkitems?.map((item) => (
-      
         <Container key={item.id} grade={item.pm10Grade}>
            <Title>{item.stationName}</Title>
            <Title>{item.sidoName}</Title>
@@ -41,20 +34,17 @@ function ParticleLike() {
             </svg>
            }
            </Icon> 
-           <p>{item.pm10Grade}</p>
-           {item.pm10Grade === '1'?  <SubTitle>좋음</SubTitle> :  
-           (item.pm10Grade === '2'?  <SubTitle>보통</SubTitle> : 
-           (item.pm10Grade === '3'?  <SubTitle>한때나쁨</SubTitle> : 
-           (item.pm10Grade === '4'?  <SubTitle>나쁨</SubTitle> : 
-           (item.pm10Grade === '5'?  <SubTitle>매우나쁨</SubTitle> : <SubTitle>알수없음</SubTitle>)) )) }
+           {item.pm10Grade === '1'?  <Grade>좋음</Grade> :  
+           (item.pm10Grade === '2'?  <Grade>보통</Grade> : 
+           (item.pm10Grade === '3'?  <Grade>한때나쁨</Grade> : 
+           (item.pm10Grade === '4'?  <Grade>나쁨</Grade> : 
+           (item.pm10Grade === '5'?  <Grade>매우나쁨</Grade> : <Grade>알수없음</Grade>)) )) }
            <SubTitle>미세먼지 수치 : {item.pm10Value}</SubTitle>
            <SubTitle>{item.dataTime} 기준</SubTitle>
         </Container> 
-       
-          
       ))}
-        </div>  
-    
+    </div> 
+
   )
 }
 
