@@ -16,7 +16,6 @@ function ParticleAreaDetail({data}) {
         return true;
       }
       
-    //   const newdata = data.items?.find(findstation)
       const newdata = items?.find(findstation)
       const CheckHandler = (id) => {
         setItems(items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item))
@@ -31,7 +30,7 @@ function ParticleAreaDetail({data}) {
     <div>
         <div>
         <span>인천</span>
-        <select onChange={handleChange}>
+        <select onChange={handleChange} defaultValue={'계산'}>
         {data.items?.map((element) => 
         <option key={element.stationName} value={element.stationName}>{element.stationName}</option>
         )}

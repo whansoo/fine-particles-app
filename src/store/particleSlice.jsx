@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios";
-// import { fetchData } from "../api/axios"
+
 
 const initialState = {
     data: [],
@@ -22,7 +22,6 @@ export const getParticles = createAsyncThunk("particles/getParticles", async (si
   }
   });
     const json = response.data
-    console.log(json.response.body)
     return json.response.body
   } catch (err) {
     return rejectWithValue(err.response.data)
@@ -41,7 +40,6 @@ export const getParticle = createAsyncThunk("particles/getParticle", async (sido
   }
   });
     const json = response.data
-    console.log(json.response.body)
     return json.response.body
   } catch (err) {
     return rejectWithValue(err.response.data)

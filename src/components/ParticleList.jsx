@@ -14,7 +14,6 @@ function Particlelist({ data }) {
   
   const a = items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item).filter((item => item.id === id))
   dispatch(wisha(...a))
-    console.log(...a)
   }
  
   const onClick = (id) => {

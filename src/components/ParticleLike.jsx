@@ -9,7 +9,6 @@ function ParticleLike() {
     const CheckHandler = (id) => {
       setCheckitems(checkitems?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item).filter((item => item.id !== id)))
     }
-    console.log(checkitems)
    
     const onClick = (id) => {
       CheckHandler(id)
