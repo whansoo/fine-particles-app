@@ -4,29 +4,12 @@ import axios from "axios";
 
 const initialState = {
     data: [],
+    sidonametag: [],
     wish: [],
     loading: false,
 };
-// const getParameters = {
-//   serviceKey: '9/Vc243KZHuIFi+JjHzMQjFpodJZohurjl8MM0IdBqgAe/eSJELcQfSopXf50XG6Vv3nkxmyQuhz5tainydZng==',
-//   returnType:'json',
-//   numOfRows:'100',
-//   pageNo:'1',
-//   sidoName: '인천',
-//   ver:'1.0',
-// }
-// export const getParticles = createAsyncThunk("particles/getParticles", async (_, {rejectWithValue}) => {
-//     try {
-//       const response = await axios.get("/api/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty", {params: getParameters});
-//       const json = response.data
-//       console.log(json.response.body)
-//       return json.response.body
-//     } catch (err) {
-//       return rejectWithValue(err.response.data)
-//     }
-//   });
 
-export const getParticles = createAsyncThunk("particles/getParticles", async (name, {rejectWithValue}) => {
+export const getParticles = createAsyncThunk("particles/getParticles", async (sidoname, {rejectWithValue}) => {
   try {
     const response = await axios.get("/api/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty", {params: 
   {
@@ -34,7 +17,26 @@ export const getParticles = createAsyncThunk("particles/getParticles", async (na
     returnType:'json',
     numOfRows:'100',
     pageNo:'1',
-    sidoName: `${name}`,
+    sidoName: `${sidoname}`,
+    ver:'1.0'
+  }
+  });
+    const json = response.data
+    console.log(json.response.body)
+    return json.response.body
+  } catch (err) {
+    return rejectWithValue(err.response.data)
+  }
+});
+export const getParticle = createAsyncThunk("particles/getParticle", async (sidoname, {rejectWithValue}) => {
+  try {
+    const response = await axios.get("/api/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty", {params: 
+  {
+    serviceKey: '9/Vc243KZHuIFi+JjHzMQjFpodJZohurjl8MM0IdBqgAe/eSJELcQfSopXf50XG6Vv3nkxmyQuhz5tainydZng==',
+    returnType:'json',
+    numOfRows:'500',
+    pageNo:'1',
+    sidoName: `${sidoname}`,
     ver:'1.0'
   }
   });
@@ -51,9 +53,9 @@ export const getParticles = createAsyncThunk("particles/getParticles", async (na
     name: "particles",
     initialState,
     reducers: {
-      wish: (state, action) => {
-        state.wish = [...state.wish, action.payload]
-      },
+      wisha: (state, action) => {
+          state.wish = [...state.wish, action.payload]
+        }
     },
     extraReducers: {
       [getParticles.pending]: (state) => {
@@ -66,8 +68,17 @@ export const getParticles = createAsyncThunk("particles/getParticles", async (na
       [getParticles.rejected]: (state) => {
         state.loading = false;
       },
-      
+      [getParticle.pending]: (state) => {
+        state.loading = true
+      },
+      [getParticle.fulfilled]: (state, action) => {
+        state.loading = false;
+        state.sidonametag = action.payload
+      },
+      [getParticle.rejected]: (state) => {
+        state.loading = false;
+      },
     },
   });
-  export const { wish } = particleSlice.actions;
+  export const { wisha  } = particleSlice.actions;
   export default particleSlice.reducer;

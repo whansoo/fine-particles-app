@@ -1,31 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Container, Title, SubTitle, Icon } from './StyleParticleList';
-import { wish } from '../store/particleSlice'
+import { wisha } from '../store/particleSlice'
 
 
 
 function Particlelist({ data }) {
   const [items, setItems] = useState(data.items?.map((item, index) => ({...item, id: index, checked: false})))
-  // const [checked, setChecked] = useState(data.items?.map((item, index) => ({...item, id: index, checked: false})))
- 
-  // console.log(items[0])
   const dispatch = useDispatch()
   const CheckHandler = (id) => {
-    setItems(items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item).filter((item => item.id !== id)))
-  //  (items?.find(item => item.id === id ? (item[id]) : item))
-  // setChecked(items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item).filter(item => item.id === id))
+    setItems(items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item))
+ 
   
   const a = items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item).filter((item => item.id === id))
-  dispatch(wish(...a))
+  dispatch(wisha(...a))
     console.log(...a)
-// console.log(items?.map(item => item.id === id ? item.item[id] : item))
-  //   useEffect(() => {
-  //     dispatch(getParticles(sidoname))
-  // }, [checked])
   }
- 
-
  
   const onClick = (id) => {
     CheckHandler(id)
