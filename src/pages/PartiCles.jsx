@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { getParticles, getParticle } from '../store/particleSlice'
+import { getParticles } from '../store/particleSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Particlelist from '../components/particlelist'
-
+import { SidoName } from '../data/NameData'
 function PartiCles() {
 
  const [sidoname, setSidoname] = useState('전국')
@@ -12,10 +12,9 @@ function PartiCles() {
     setSidoname(e.target.value)
 	};
     const dispatch = useDispatch()
-    const {data, loading, sidonametag} = useSelector((state) => state.particles)
+    const {data, loading} = useSelector((state) => state.particles)
 
     useEffect(() => {
-      dispatch(getParticle('전국'))
         dispatch(getParticles(sidoname))
     }, [sidoname])
    
@@ -23,14 +22,9 @@ function PartiCles() {
   return (
     <div>
       <select onChange={handleChange}>
-        {sidonametag.items?.filter(
-                  (arr, index, callback) =>
-                    index ===
-                    callback.findIndex((tag) => tag.sidoName === arr.sidoName)
-                ).map((element) => 
-        <option key={element.sidoName} value={element.sidoName}>{element.sidoName}</option>
-        )}
-        
+        {SidoName.map((item) => (
+        <option key={item} value={item}>{item}</option>
+        ))}
 		  </select>
       {data.items && <Particlelist data={data}/>}
     </div>

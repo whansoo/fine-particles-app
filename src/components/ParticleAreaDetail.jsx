@@ -4,7 +4,7 @@ import { wisha } from '../store/particleSlice'
 import { useDispatch } from 'react-redux';
 
 function ParticleAreaDetail({data}) {
-    const [stationname, setStationame] = useState('계산')
+    const [stationname, setStationame] = useState()
     const [items, setItems] = useState(data.items?.map((item, index) => ({...item, id: index, checked: false})))
     const dispatch = useDispatch()
     const handleChange = (e) => {
@@ -29,7 +29,6 @@ function ParticleAreaDetail({data}) {
   return (
     <div>
         <div>
-        <span>인천</span>
         <select onChange={handleChange} defaultValue={'계산'}>
         {data.items?.map((element) => 
         <option key={element.stationName} value={element.stationName}>{element.stationName}</option>

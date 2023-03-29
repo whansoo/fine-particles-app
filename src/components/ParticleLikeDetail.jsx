@@ -1,28 +1,10 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { Container, Title, SubTitle,Grade, Icon } from './StyleParticleList';
-import { wisha } from '../store/particleSlice'
+import React from 'react'
+import { Container, Grade, Icon, SubTitle, Title } from './StyleParticleList';
 
-
-
-function Particlelist({ data }) {
-  const [items, setItems] = useState(data.items?.map((item, index) => ({...item, id: index, checked: false})))
-  const dispatch = useDispatch()
-  const CheckHandler = (id) => {
-    setItems(items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item))
- 
-  
-  const a = items?.map(item => item.id === id ? ({...item, checked: !item.checked}) : item).filter((item => item.id === id))
-  dispatch(wisha(...a))
-  }
- 
-  const onClick = (id) => {
-    CheckHandler(id)
-  }
- 
+function ParticleLikeDetail({checkitems, onClick }) {
   return (
     <div>
-      {items?.map((item) => (
+         {checkitems?.map((item) => (
         <Container key={item.id} grade={item.pm10Grade}>
            <Title>{item.stationName}</Title>
            <Title>{item.sidoName}</Title>
@@ -42,13 +24,12 @@ function Particlelist({ data }) {
            (item.pm10Grade === '3'?  <Grade>한때나쁨</Grade> : 
            (item.pm10Grade === '4'?  <Grade>나쁨</Grade> : 
            (item.pm10Grade === '5'?  <Grade>매우나쁨</Grade> : <Grade>알수없음</Grade>)) )) }
-            
            <SubTitle>미세먼지 수치 : {item.pm10Value}</SubTitle>
            <SubTitle>{item.dataTime} 기준</SubTitle>
-        </Container>
+        </Container> 
       ))}
     </div>
   )
 }
 
-export default Particlelist
+export default ParticleLikeDetail
